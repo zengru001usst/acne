@@ -56,7 +56,7 @@ class MyNetwork(object):
     def _build_placeholder(self):
         """Build placeholders."""
 
-        # Make tensforflow placeholder
+        # Make tensforflow placeholder. tensorflow graph
         self.x_in = tf.placeholder(tf.float32, [None, 1, None, 4], name="x_in")
         self.y_in = tf.placeholder(tf.float32, [None, None, 2], name="y_in")
         self.R_in = tf.placeholder(tf.float32, [None, 9], name="R_in")
@@ -68,8 +68,8 @@ class MyNetwork(object):
         self.K1_in = tf.placeholder(tf.float32, [None, 3, 3], name="K1_in") # calib mat
         self.K2_in = tf.placeholder(tf.float32, [None, 3, 3], name="K2_in") # calib mat
 
-        # Global step for optimization
-        self.global_step = tf.get_variable(
+        # Global step for optimization #创建一个global 的变量
+        self.global_step = tf.get_variable( 
             "global_step", shape=(),
             initializer=tf.zeros_initializer(),
             dtype=tf.int64,
@@ -84,7 +84,7 @@ class MyNetwork(object):
     def _build_model(self):
         """Build our MLP network."""
 
-        with tf.variable_scope("Matchnet", reuse=tf.AUTO_REUSE):
+        with tf.variable_scope("Matchnet", reuse=tf.AUTO_REUSE):  #创建变量域，便于参数共享
             # For intermediate visualization 
             self.fetch_vis = {}
             # -------------------- Network archintecture --------------------
